@@ -10,6 +10,7 @@ if(!isset($_SESSION)){
   session_start();
 }
 
+echo "teddy is crazy ";
 if (isset($_SESSION['userid'])) {  // determine if there is an authenticated user.
   switch (strtolower($_SESSION['role'])) {
   case "student":
