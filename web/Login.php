@@ -16,14 +16,12 @@ if (isset($_POST['login'])) // HANDLE THE FORM
     }
     
     // QUERY TO VALIDATE USER
-    $q = "SELECT userid, username, pwd, role 
+    $q = "SELECT userid, lastName, pwd
            FROM User 
-          WHERE username = '" . $_POST['username'] ."' 
-            AND pwd = '"    . ($_POST['pwd']) ."'";
+          WHERE lastName = '" . $_POST['username'] ."' 
+            AND pwd = '"    . md5($_POST['pwd']) ."'";
 
     // EXECUTE THE QUERY
-    print_r($q . "\n");
-    print_r($db);
     $r = $db->query($q);
     
     if($r->rowCount() == 1) // ASSUMES UNIQUENESS OF USERID SET IN DATABASE
@@ -32,7 +30,7 @@ if (isset($_POST['login'])) // HANDLE THE FORM
       @session_start();
       $row = $r->fetch();  // FETCH A SINGLE ROW OF DATA
       $_SESSION['userid']   = $row['userid'];
-      $_SESSION['role']     = $row['role'];
+      $_SESSION['lastName']     = $row['lastName'];
       
       // REDIRECT TO THE CORRECDT PORTAL
       $location = ($_SESSION['role'] == 'teacher') ? "ManageCourses.php" : "Profile.php";
