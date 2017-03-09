@@ -7,6 +7,16 @@ require('inc.header.php');
 
 if (isset($_POST['delete'])) {
   print_r($_POST['delete']);
+  print_r($_SESSION['userid']);
+  if (!isset($db)) {
+    require_once('inc.dbc.php');
+    $db = get_connection();
+  }
+  $q = "DELETE FROM Cart WHERE productID={$_POST['delete']} AND cartID={$_SESSION['userid']}";
+  $r = $db->query($q);
+  if (!$r) {
+    echo 'ERROR';
+  }
 }
 
 function getProduct($arr) {
