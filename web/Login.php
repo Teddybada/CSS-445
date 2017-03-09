@@ -4,7 +4,7 @@ if (isset($_POST['login'])) // HANDLE THE FORM
 {
    
   // CHECK TO ENSURE INPUTS ARE VALID
-  if (strlen($_POST['username']) == 0 || strlen($_POST['pwd']) == 0)
+  if (strlen($_POST['email']) == 0 || strlen($_POST['pwd']) == 0)
   {
     $errors = '<p class="alert-danger">Please enter both a username and a password</p>';
   } else {
@@ -16,9 +16,9 @@ if (isset($_POST['login'])) // HANDLE THE FORM
     }
     
     // QUERY TO VALIDATE USER
-    $q = "SELECT userid, lastName, pwd
+    $q = "SELECT userid, userType, pwd
            FROM User 
-          WHERE lastName = '" . $_POST['username'] ."' 
+          WHERE email = '" . $_POST['email'] ."' 
             AND pwd = '"    . md5($_POST['pwd']) ."'";
 
     // EXECUTE THE QUERY
@@ -30,10 +30,10 @@ if (isset($_POST['login'])) // HANDLE THE FORM
       @session_start();
       $row = $r->fetch();  // FETCH A SINGLE ROW OF DATA
       $_SESSION['userid']   = $row['userid'];
-      $_SESSION['lastName']     = $row['lastName'];
+      $_SESSION['userType'] = $row['userType'];
       
       // REDIRECT TO THE CORRECDT PORTAL
-      $location = ($_SESSION['role'] == 'teacher') ? "ManageCourses.php" : "Profile.php";
+      $location = ($_SESSION['userType'] == 'Employee') ? "ManageCourses.php" : "Profile.php";
       header("Location: " . $location);
     } else { // THROW ERROR
       $errors .= $errors . '<p class="alert-danger">Invalid Username/Password</p>';
@@ -63,7 +63,7 @@ if (isset($_POST['login'])) // HANDLE THE FORM
 	
 	<form class="form-signin" role="form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		<h4 class="form-signin-heading text-center">Please sign in</h4>
-		<input type="text" class="form-control" placeholder="Username" value="<?php echo $_POST['username']; ?>" name="username" required autofocus />
+		<input type="text" class="form-control" placeholder="Email" value="<?php echo $_POST['email']; ?>" name="email" required autofocus />
 		<input type="password" class="form-control" placeholder="Password" required name="pwd">
 		<?php echo $errors; ?>
 		<button class="btn btn-lg btn-primary btn-block" type="submit" name="login">

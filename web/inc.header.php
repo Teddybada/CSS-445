@@ -10,7 +10,7 @@ if(!isset($_SESSION['userid']))
 }
 
 // CHECK IF USER HAS RIGHTS TO THE PAGE
-if($page_type != 'public' && $page_type != $_SESSION['role'])
+if($page_type != 'public' && $page_type != $_SESSION['userType'])
 {
   echo '<p>Access Denied</p>';
   exit();

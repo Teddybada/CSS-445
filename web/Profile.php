@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
 }
 
 // SET $page_type = 'student','teacher','public'
-$page_type = 'student';
+$page_type = 'Customer';
 require('inc.header.php');
 
 
@@ -48,8 +48,6 @@ $r = $db->query($q);
 
 $row = $r->fetch(); // GET A SINGLE ROW
 $attributes = array(
-  "username" => $row['lastName'],
-  "$userid"   => $row['userid'],
   "first name" => $row['firstName'],
   "last name" => $row['lastName'],
   "email"    => $row['email'],

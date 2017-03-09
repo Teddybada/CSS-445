@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION)) {
     session_start();
   }
-  $page_type = 'student';
+  $page_type = 'Customer';
   require('inc.header.php');
 
 if (!isset($db)) {
@@ -59,7 +59,6 @@ $attributes = array(
       <h2 class="panel-title">Welcome to TSS445 Project Demo</h2>
     </div>
     <div class="panel-body">
-      This mini project leverages Bootstrap 3.3.7 for HTML/CSS/JS, PHP5 and MariaDB X.X.X
     </div>
   </div>
   <div class="container">
